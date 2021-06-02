@@ -118,6 +118,12 @@ let codeGenerator = {
 		}
 		if (closingElement) this[closingElement.type](closingElement, state);
 	},
+	JSXMemberExpression(node, state) {
+		state.write(this[node.object.type](node.object, state));
+		state.write('.');
+		state.write(this.Identifier(node.property, state));
+	},
+	JSXEmptyExpression(node, state) {},
 	JSXOpeningElement(node, state) {
 		const { name, attributes, selfClosing } = node;
 		state.write('<');
